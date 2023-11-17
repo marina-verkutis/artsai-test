@@ -1,0 +1,51 @@
+{% extends 'metrics/base.html' %}
+
+{% block title %}
+Metrics Tracker - Aggregation tables
+{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Aggregation</h1>
+
+          <form id="aggregation-form" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-end">
+              {% csrf_token %}
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <select class="form-select w-auto" aria-label="Default select example" id="aggregation-list">
+                        <option value="mm_dma">mm_dma</option>
+                        <option value="site_id">site_id</option>
+                    </select>
+                    <select class="form-select w-auto" aria-label="Default select example" id="events-list">
+                        {% for item in events %}
+                            <option value="{{ item }}">{{ item }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="input-group">
+
+                        <input type="text" class="datepicker-here form-control date-range" data-date-format="dd.mm.yyyy"  >
+                        <span class="input-group-text" id="basic-addon2">
+                            <svg class="bi"><use xlink:href="#calendar3"></use></svg>
+                        </span>
+                    </div>
+
+                  <button type="button" class="btn btn-outline-primary" onclick="updateAggregation()">
+                      Update
+                  </button>
+
+              </div>
+          </form>
+    </div>
+
+    <div class="container mt-5">
+        <div id="title-container"></div>
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr id="table-headers"></tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+        </table>
+    </div>
+
+
+{% endblock %}

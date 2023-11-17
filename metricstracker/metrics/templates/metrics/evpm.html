@@ -1,0 +1,37 @@
+{% extends 'metrics/base.html' %}
+
+{% block title %}
+Metrics Tracker - EvPM
+{% endblock %}
+
+{% block content %}
+
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">EvPM (‰)</h1>
+          <form id="evpm-form" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-end">
+              {% csrf_token %}
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <select class="form-select w-auto" aria-label="Default select example" id="events-list">
+                        {% for item in events %}
+                            <option value="{{ item }}">{{ item }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="input-group">
+
+                        <input type="text" class="datepicker-here form-control date-range" data-date-format="dd.mm.yyyy"  >
+                        <span class="input-group-text" id="basic-addon2">
+                            <svg class="bi"><use xlink:href="#calendar3"></use></svg>
+                        </span>
+                    </div>
+
+                  <button type="button" class="btn btn-outline-primary" onclick="updateEvPM()">
+                      Update
+                  </button>
+
+              </div>
+          </form>
+      </div>
+<div id="result-container"></div>
+      <canvas class="my-4 w-100" id="evpmChart" width="798" height="336" style="display: block; box-sizing: border-box; height: 269px; width: 638px;"></canvas>
+
+{% endblock %}
